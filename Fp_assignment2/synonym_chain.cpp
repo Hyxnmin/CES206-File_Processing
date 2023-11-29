@@ -4,13 +4,16 @@
 
 using namespace std;
 
+#define BUCKET_SIZE 16
+
 typedef struct Bucket {
-    long long value, key;
+    long long value;
+    long long key;
 }Bucket;
 
-void insert_value(vector<Bucket>& bucket, long long key) {
+void insert_value(vector<Bucket>& bucket, const long long key) {
 
-    long long hash_key = key % 16;
+    const long long hash_key = key % BUCKET_SIZE;
     long long  save_key = hash_key;
 
     if (bucket[hash_key].value == -1) {
@@ -27,7 +30,7 @@ void insert_value(vector<Bucket>& bucket, long long key) {
                 return;
             }
             // save insert value's address for connect previous value
-            if (bucket[i].value % 16 == hash_key && bucket[i].key == -1) {
+            if (bucket[i].value % BUCKET_SIZE == hash_key && bucket[i].key == -1) {
                 save_key = i;
             }
         }
@@ -41,9 +44,9 @@ void insert_value(vector<Bucket>& bucket, long long key) {
     }
 }
 
-void delete_value(vector<Bucket>& bucket, long long key) {
+void delete_value(vector<Bucket>& bucket, const long long key) {
 
-    long long hash_key = key % 16;
+    const long long hash_key = key % BUCKET_SIZE;
     long long cur = hash_key, next = bucket[hash_key].key;
 
     // find delete value
@@ -67,9 +70,8 @@ void print_value(vector<Bucket>& bucket) {
 
     ofstream fout("result.txt");
 
-    int cur = 0;
     for (int i = 0; i < 16; ++i) {
-        cur = i;
+        int cur = i;
         fout << cur << ":";
         // using key for print value
         while (bucket[cur].key != -1) {
