@@ -46,7 +46,7 @@ int main() {
     }
 
     ofstream fout;
-    fout.open("test.txt"); //merge_out.txt 파일 열기
+    fout.open("merged_out.txt"); //merge_out.txt 파일 열기
 
     for (long long i = 0; i < 10; ++i) {
         sp = 7, fp = 15;
