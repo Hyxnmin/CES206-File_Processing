@@ -4,7 +4,7 @@
 
 using namespace std;
 
-#define BUCKET_SIZE 16
+#define HASH 16
 
 typedef struct Bucket {
     long long value;
@@ -13,7 +13,7 @@ typedef struct Bucket {
 
 void insert_value(vector<Bucket>& bucket, const long long key) {
 
-    const long long hash_key = key % BUCKET_SIZE;
+    const long long hash_key = key % HASH;
     long long  save_key = hash_key;
 
     if (bucket[hash_key].value == -1) {
@@ -30,7 +30,7 @@ void insert_value(vector<Bucket>& bucket, const long long key) {
                 return;
             }
             // save insert value's address for connect previous value
-            if (bucket[i].value % BUCKET_SIZE == hash_key && bucket[i].key == -1) {
+            if (bucket[i].value % HASH == hash_key && bucket[i].key == -1) {
                 save_key = i;
             }
         }
@@ -46,7 +46,7 @@ void insert_value(vector<Bucket>& bucket, const long long key) {
 
 void delete_value(vector<Bucket>& bucket, const long long key) {
 
-    const long long hash_key = key % BUCKET_SIZE;
+    const long long hash_key = key % HASH;
     long long cur = hash_key, next = bucket[hash_key].key;
 
     // find delete value
