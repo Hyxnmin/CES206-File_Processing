@@ -24,8 +24,7 @@ long long file_data_count(string str) {
 
 void read_file(string str, long long* read_input) {
     int cnt = 0;
-    ifstream fin;
-    fin.open(str);
+    ifstream fin(str);
 
     while (!fin.eof()) {
         fin >> read_input[cnt++];
@@ -45,8 +44,7 @@ int main() {
         read_file("input_" + to_string(i) + ".txt", read_input[i]);
     }
 
-    ofstream fout;
-    fout.open("merged_out.txt"); //merge_out.txt 파일 열기
+    ofstream fout("merged_out.txt"); //merge_out.txt 파일 열기
 
     for (long long i = 0; i < 10; ++i) {
         sp = 7, fp = 15;
