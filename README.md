@@ -1,3 +1,3 @@
 # CSE206-File_Processing
 
-Repository for File_Processing assignment
+Repository for Dong-A univ File_Processing assignment
