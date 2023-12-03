@@ -47,19 +47,26 @@ void insert_value(vector<Bucket>& bucket, const long long key) {
 void delete_value(vector<Bucket>& bucket, const long long key) {
 
     const long long hash_key = key % HASH;
-    long long cur = hash_key, next = bucket[hash_key].key;
+    long long prev = -1, cur = hash_key, next = bucket[hash_key].key;
 
     // find delete value
     while (bucket[cur].value != key && next != -1) {
-        cur = next, next = bucket[next].key;
+        prev = cur, cur = next, next = bucket[next].key;
     }
 
     // connect remove value's prev value and next value
-    if (next != -1) {
-        bucket[cur].value = bucket[next].value;
-        bucket[cur].key = bucket[next].key;
-        bucket[next].key = -1;
-        bucket[next].value = -1;
+    if (bucket[cur].value == key) {
+        if (next != -1) {
+            bucket[cur].value = bucket[next].value;
+            bucket[cur].key = bucket[next].key;
+            bucket[next].key = -1;
+            bucket[next].value = -1;
+        }
+        else if (next == -1 && prev != -1) {
+            bucket[prev].key = -1;
+            bucket[cur].key = -1;
+            bucket[cur].value = -1;
+        }
     }
 
     return;
