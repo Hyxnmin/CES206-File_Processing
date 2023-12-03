@@ -67,6 +67,10 @@ void delete_value(vector<Bucket>& bucket, const long long key) {
             bucket[cur].key = -1;
             bucket[cur].value = -1;
         }
+        else {
+            bucket[cur].key = -1;
+            bucket[cur].value = -1;
+        }
     }
 
     return;
